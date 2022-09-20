@@ -1,0 +1,4 @@
+atlassian-python-api
+PyYAML
+PyGithub==1.51
+pytz==2019.1
