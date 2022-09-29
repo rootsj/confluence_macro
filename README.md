@@ -5,6 +5,10 @@
 ### 3. 매크로 구현 시 매크로 서버 리소스 문제 → Github Enterprise Actions으로 겸사겸사 해결
 ### 4. pdf 업로드 귀찮음
 
+# 페이지 아이디란?
+![img0](./src/img_0.png)
+
+- pages 뒤의 숫자 295647
 
 # 매크로 설정 방법
 ## confluence_macro_setting.yml
