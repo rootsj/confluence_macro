@@ -95,9 +95,9 @@ def daily_macro():
 
 
         if ( download_url != None):
-            s3_url = confluence.get(download_url, headers=headers, not_jsonresponse=True)
+            s3_url = confluence.get(download_url, headers=headers, not_json_response=True)
 
-            with open(file_name, "wb") as file:   
+            with open("./" +str(daily_page_id) + "/" + file_name, "wb") as file:   
                 response = get(s3_url)
                 try:
                     file.write(response.content) 

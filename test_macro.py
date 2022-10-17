@@ -39,12 +39,15 @@ with open('confluence_macro_setting.yml') as f:
     today = datetime.utcnow()
     ddmmyy = today.strftime("%d%m%y")
     hhmm = today.strftime("%H%M")
+    start = datetime(today.year, today.month, today.day)
+    seconds = str((today - start).seconds).zfill(6)
 
 
     for daily_page_id in DAILY_PAGE_ID_LIST:
         # 파일 이름
         page_space = confluence.get_page_space(daily_page_id)
-        file_name = page_space + '-' + str(daily_page_id) + '-' + ddmmyy + '-' + hhmm + '.pdf'
+        page_title = confluence.get_page_by_id(daily_page_id).get('title')
+        file_name = page_space + '-' + page_title + '-' + ddmmyy + '-' + seconds + '.pdf'
 
         # print(confluence.get_parent_content_title(daily_page_id))
         # print(confluence.get_page_by_id(daily_page_id).get('title'))
@@ -96,6 +99,6 @@ with open('confluence_macro_setting.yml') as f:
         if ( download_url != None):
             s3_url = confluence.get(download_url, headers=headers, not_json_response=True)
 
-            with open(file_name, "wb") as file:   
+            with open("./" +str(daily_page_id) + "/" + file_name, "wb") as file:   
                 response = get(s3_url)               
                 file.write(response.content) 
