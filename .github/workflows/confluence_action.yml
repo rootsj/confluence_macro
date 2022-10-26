@@ -1,8 +1,6 @@
 name: confluence_action
 
 on:
-  push:
-    branches: [ "main" ]
   schedule:
     - cron: '0 9 * * 1-5'
 
