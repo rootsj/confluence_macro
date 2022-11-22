@@ -39,11 +39,15 @@ def daily_macro():
     ddmmyy = today.strftime("%d%m%y")
     hhmm = today.strftime("%H%M")
 
+    start = datetime(today.year, today.month, today.day)
+    seconds = str((today - start).seconds).zfill(6)
+
 
     for daily_page_id in DAILY_PAGE_ID_LIST:
         # 파일 이름
         page_space = confluence.get_page_space(daily_page_id)
-        file_name = page_space + '-' + str(daily_page_id) + '-' + ddmmyy + '-' + hhmm + '.pdf'
+        page_title = confluence.get_page_by_id(daily_page_id).get('title')
+        file_name = page_space + '-' + page_title + '-' + ddmmyy + '-' + seconds + '.pdf'
 
         # 폴더 여부
         try:

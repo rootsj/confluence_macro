@@ -1,13 +1,13 @@
 import os
 from datetime import datetime
 from pytz import timezone
-import hiconsy_daily_2
-import hiconsy_weekly_2
+import hiconsy_daily
+import hiconsy_weekly
 from github_utils import get_github_repo, upload_github_issue
 
 if __name__ == '__main__':
-    hiconsy_daily_2.daily_macro()
-    hiconsy_weekly_2.weekly_macro()
+    hiconsy_daily.daily_macro()
+    hiconsy_weekly.weekly_macro()
 
     seoul_timezone = timezone('Asia/Seoul')
     today = datetime.now(seoul_timezone)

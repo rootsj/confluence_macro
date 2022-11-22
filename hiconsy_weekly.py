@@ -38,15 +38,19 @@ def weekly_macro():
     today = datetime.utcnow()
     ddmmyy = today.strftime("%d%m%y")
     hhmm = today.strftime("%H%M")
+
+    start = datetime(today.year, today.month, today.day)
+    seconds = str((today - start).seconds).zfill(6)
+
     # 월화수목금토일 구분값
     weekday = today.weekday()
 
     for weekly in WEEKLY_LIST:
         if weekday in weekly['weekday']:
             # 파일 이름
-
             page_space = confluence.get_page_space(weekly['page_id'])
-            file_name = page_space + '-' + str(weekly['page_id']) + '-' + ddmmyy + '-' + hhmm + '.pdf'
+            page_title = confluence.get_page_by_id(weekly['page_id']).get('title')
+            file_name = page_space + '-' + page_title + '-' + ddmmyy + '-' + seconds + '.pdf'
 
             # 폴더 여부
             try:
