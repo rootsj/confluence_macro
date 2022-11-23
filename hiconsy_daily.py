@@ -48,6 +48,7 @@ def daily_macro():
         page_space = confluence.get_page_space(daily_page_id)
         page_title = confluence.get_page_by_id(daily_page_id).get('title')
         file_name = page_space + '-' + page_title + '-' + ddmmyy + '-' + seconds + '.pdf'
+        file_name_word = page_space + '-' + page_title + '-' + ddmmyy + '-' + seconds + '.doc'
 
         # 폴더 여부
         try:
@@ -60,8 +61,24 @@ def daily_macro():
             try:
                 # pdf 파일 생성
                 pdf_file.write(confluence.get_page_as_pdf(str(daily_page_id)))
-                confluence.attach_file('./' + str(daily_page_id) + '/' + file_name, page_id=daily_page_id, comment="uploaded by macro")
+
+                print(os.path.getsize("./" +str(daily_page_id) + "/" + file_name))
+                if (os.path.getsize("./" +str(daily_page_id) + "/" + file_name) > 200000):
+                    print('111')
+                    confluence.attach_file('./' + str(daily_page_id) + '/' + file_name, page_id=daily_page_id, comment="uploaded by macro")
             except HTTPError as e:
                 logger.error(e)
             except OSError as e :
                 logger.error(e)
+
+        if (os.path.getsize("./" +str(daily_page_id) + "/" + file_name) < 200000):
+            print('222')
+            with open("./" +str(daily_page_id) + "/" + file_name_word, "wb") as word_file:
+                try:
+                    # pdf 파일 생성
+                    word_file.write(confluence.get_page_as_word(str(daily_page_id)))
+                    confluence.attach_file('./' + str(daily_page_id) + '/' + file_name_word, page_id=daily_page_id, comment="uploaded by macro")
+                except HTTPError as e:
+                    logger.error(e)
+                except OSError as e :
+                    logger.error(e)
