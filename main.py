@@ -3,11 +3,13 @@ from datetime import datetime
 from pytz import timezone
 import hiconsy_daily
 import hiconsy_weekly
+import hiconsy_monthly
 from github_utils import get_github_repo, upload_github_issue
 
 if __name__ == '__main__':
     hiconsy_daily.daily_macro()
     hiconsy_weekly.weekly_macro()
+    hiconsy_monthly.monthly_macro()
 
     seoul_timezone = timezone('Asia/Seoul')
     today = datetime.now(seoul_timezone)
