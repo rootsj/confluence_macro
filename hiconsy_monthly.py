@@ -35,11 +35,12 @@ def monthly_macro():
         password=HICONSY_PW)
 
     # 날짜 정보
-    today = datetime.utcnow()
-    ddmmyy = today.strftime("%d%m%y")
-    hhmm = today.strftime("%H%M")
+    utc_now = datetime.datetime.now(datetime.timezone.utc)
+    today = utc_now.date()
+    ddmmyy = utc_now.strftime("%d%m%y")
+    hhmm = utc_now.strftime("%H%M")
     # 월화수목금토일 구분값
-    weekday = today.weekday()
+    weekday = utc_now.weekday()
 
     # 몇번째 요일
     weekday_of_first = datetime.date(today.year, today.month, 1).weekday()
