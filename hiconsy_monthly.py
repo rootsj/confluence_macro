@@ -1,6 +1,6 @@
 from urllib.error import HTTPError
 from atlassian import Confluence
-from datetime import datetime
+from datetime import datetime, timezone
 from pytz import timezone
 import os
 import yaml
@@ -35,7 +35,7 @@ def monthly_macro():
         password=HICONSY_PW)
 
     # 날짜 정보
-    utc_now = datetime.datetime.now(datetime.timezone.utc)
+    utc_now = datetime.now(timezone.utc)
     today = utc_now.date()
     ddmmyy = utc_now.strftime("%d%m%y")
     hhmm = utc_now.strftime("%H%M")
